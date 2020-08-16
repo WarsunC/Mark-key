@@ -13,20 +13,11 @@
             searchContent = document.querySelector('#searchContent')
         
         const content = searchContent.innerHTML // 存储原来的文本
-        let contentArray = content.split('') //文本对应的数组
-        let indexArray = [] // 存储查询到的数组下标
+
         searchKey.addEventListener('blur', function(){
-            let searchKeyArray = searchKey.value.split('')
-            let searchKeyArrayLength = searchKeyArray.length
-            contentArray.forEach((value, index) => {
-                if (value === searchKeyArray[0]) {
-                    indexArray.push(index)
-                }
-            })
-            indexArray.forEach(number => {
-                contentArray[number] = `<span style="color:red">${contentArray[number]}</span>`
-            })
-            searchContent.innerHTML = contentArray.join('')
+            let searchRE = new RegExp(searchKey.value, 'g')
+            // console.log(searchRE.exec(content))
+            searchContent.innerHTML = content.replace(searchRE, `<span style="color:red">${searchKey.value}</span>`)
         })
     </script>
 </body>
