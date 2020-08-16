@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索文本文字</title>
+</head>
+<body>
+    <input type="text" id="searchKey">
+    <p id="searchContent">近日，习近平总书记对研究生教育工作作出重要指示，党和国家事业发展迫切需要培养造就大批德才兼备的高层次人才。建校37载，作为唯一一所伴随深圳成长起来的综合性大学，深圳大学始终与特区发展同频共振，以大学之担当驱动“双区”建设的新征程。我校稳抓高水平大学建设契机，优化学科发展，引进高端人才，承担更多高层次国家重点项目，这些都对我校研究生培养规模及质量提出了更高的要求。</p>
+    <script>
+        const searchKey = document.querySelector('#searchKey'),
+            searchContent = document.querySelector('#searchContent')
+        
+        const content = searchContent.innerHTML // 存储原来的文本
+        let contentArray = content.split('') //文本对应的数组
+        let indexArray = [] // 存储查询到的数组下标
+        searchKey.addEventListener('blur', function(){
+            let searchKeyArray = searchKey.value.split('')
+            let searchKeyArrayLength = searchKeyArray.length
+            contentArray.forEach((value, index) => {
+                if (value === searchKeyArray[0]) {
+                    indexArray.push(index)
+                }
+            })
+            indexArray.forEach(number => {
+                contentArray[number] = `<span style="color:red">${contentArray[number]}</span>`
+            })
+            searchContent.innerHTML = contentArray.join('')
+        })
+    </script>
+</body>
+</html>
